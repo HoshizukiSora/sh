@@ -318,7 +318,7 @@ stop() {
 	if [ $? -eq 0 ]; then
 		echo "$1服務已停止。"
 	else
-		echo "錯誤：停止$1服務失敗。"
+		echo "错误：停止 $1服務失敗。"
 	fi
 }
 
@@ -1252,7 +1252,7 @@ add_swap() {
 		rc-update add local
 	fi
 
-	echo -e "虚拟内存大小已调整为${gl_huang}${new_swap}${gl_bai}M"
+	echo -e "虛擬記憶體大小已調整為${gl_huang}${new_swap}${gl_bai}M"
 }
 
 
@@ -1816,7 +1816,7 @@ nginx_waf() {
 		wget -O /home/web/nginx.conf "${gh_proxy}raw.githubusercontent.com/kejilion/nginx/main/nginx10.conf"
 	fi
 
-	# 根據 mode 參數決定開啟或關閉 WAF
+	# 根据 mode 参数来决定开启或关闭 WAF
 	if [ "$mode" == "on" ]; then
 		# 開啟 WAF：去掉註釋
 		sed -i 's|# load_module /etc/nginx/modules/ngx_http_modsecurity_module.so;|load_module /etc/nginx/modules/ngx_http_modsecurity_module.so;|' /home/web/nginx.conf > /dev/null 2>&1
@@ -2332,7 +2332,7 @@ check_nginx_compression() {
 
 	# 檢查 gzip 是否開啟且未被註釋
 	if grep -qE '^\s*gzip\s+on;' "$CONFIG_FILE"; then
-		gzip_status="gzip壓縮已開啟"
+		gzip_status=" gzip压缩已开启"
 	else
 		gzip_status=""
 	fi
@@ -2351,7 +2351,7 @@ web_optimization() {
 			  echo "------------------------"
 			  echo "1. 標準模式 2. 高效能模式 (建議2H4G以上)"
 			  echo "------------------------"
-			  echo "3. 開啟gzip壓縮 4. 關閉gzip壓縮"
+			  echo "3. 开启gzip压缩          4. 关闭gzip压缩"
 			  echo "5. 開啟br壓縮 6. 關閉br壓縮"
 			  echo "7. 開啟zstd壓縮 8. 關閉zstd壓縮"
 			  echo "------------------------"
@@ -2538,7 +2538,7 @@ check_docker_image_update() {
 	local container_name=$1
 	update_status=""
 
-	# 1. 區域檢查
+	# 1. 区域检查
 	local country=$(curl -s --max-time 2 ipinfo.io/country)
 	[[ "$country" == "CN" ]] && return
 
@@ -2604,7 +2604,7 @@ block_container_port() {
 	install iptables
 
 
-	# 檢查並封鎖其他所有 IP
+	# 检查并封禁其他所有 IP
 	if ! iptables -C DOCKER-USER -p tcp -d "$container_ip" -j DROP &>/dev/null; then
 		iptables -I DOCKER-USER -p tcp -d "$container_ip" -j DROP
 	fi
@@ -3620,7 +3620,7 @@ stream_panel() {
 				;;
 			5)
 				send_stats "編輯轉送配置"
-				read -e -p "请输入你要编辑的服务名: " stream_name
+				read -e -p "請輸入你要編輯的服務名稱:" stream_name
 				install nano
 				nano /home/web/stream.d/$stream_name.conf
 				docker restart nginx
@@ -3651,12 +3651,12 @@ ldnmp_Proxy_backend_stream() {
 	echo "開始部署$webname"
 
 	# 取得代理名稱
-	read -erp "請輸入代理轉發名稱 (如 mysql_proxy):" proxy_name
+	read -erp "请输入代理转发名称 (如 mysql_proxy): " proxy_name
 	if [ -z "$proxy_name" ]; then
-		echo "名稱不能為空"; return 1
+		echo "名称不能为空"; return 1
 	fi
 
-	# 取得監聽埠
+	# 获取监听端口
 	read -erp "請輸入本機監聽埠 (如 3306):" listen_port
 	if ! [[ "$listen_port" =~ ^[0-9]+$ ]]; then
 		echo "連接埠必須是數字"; return 1
@@ -4214,7 +4214,7 @@ generate_access_urls() {
 	if [ "$has_valid_ports" = true ]; then
 		echo "FRP服務對外存取位址:"
 
-		# 處理 IPv4 位址
+		# 处理 IPv4 地址
 		for port in "${ports[@]}"; do
 			if [[ $port != "8055" && $port != "8056" ]]; then
 				echo "http://${ipv4_address}:${port}"
@@ -4955,7 +4955,7 @@ fetch_remote_ssh_keys() {
 		return 1
 	fi
 
-	# 檢查內容是否有效
+	# 检查内容是否有效
 	if [[ ! -s "${temp_file}" ]]; then
 		echo "錯誤：下載到的檔案為空，URL 可能不包含任何公鑰" >&2
 		rm -f "${temp_file}"
@@ -5114,7 +5114,7 @@ sshkey_panel() {
 add_sshpasswd() {
 
 	root_use
-	send_stats "设置密码登录模式"
+	send_stats "設定密碼登入模式"
 	echo "設定密碼登入模式"
 
 	local target_user="$1"
@@ -5883,7 +5883,7 @@ optimize_high_performance() {
 	sysctl -w kernel.sched_autogroup_enabled=0 2>/dev/null
 
 	echo -e "${gl_lv}其他優化...${gl_bai}"
-	# 禁用透明大页面，减少延迟
+	# 禁用透明大頁面，減少延遲
 	echo never > /sys/kernel/mm/transparent_hugepage/enabled
 	# 禁用 NUMA balancing
 	sysctl -w kernel.numa_balancing=0 2>/dev/null
@@ -6121,7 +6121,7 @@ update_locale() {
 				;;
 		esac
 	else
-		echo "不支持的系统，无法识别系统类型。"
+		echo "不支援的系統，無法辨識系統類型。"
 		break_end
 	fi
 }
@@ -6186,7 +6186,7 @@ break_end
 
 shell_bianse() {
   root_use
-  send_stats "命令列美化工具"
+  send_stats "命令行美化工具"
   while true; do
 	clear
 	echo "命令列美化工具"
@@ -6579,7 +6579,7 @@ use_connection() {
 	else
 		# 使用密碼連接
 		if ! command -v sshpass &> /dev/null; then
-			echo "错误：未安装 sshpass，请先安装 sshpass。"
+			echo "錯誤：未安裝 sshpass，請先安裝 sshpass。"
 			echo "安裝方法："
 			echo "  - Ubuntu/Debian: apt install sshpass"
 			echo "  - CentOS/RHEL: yum install sshpass"
@@ -6919,7 +6919,7 @@ add_task() {
 
 	install rsync rsync
 
-	echo "任務已儲存!"
+	echo "任务已保存!"
 }
 
 # 刪除任務
@@ -7134,7 +7134,7 @@ linux_info() {
 
 
 	clear
-	echo -e "${gl_kjlan}正在查詢系統資訊…${gl_bai}"
+	echo -e "${gl_kjlan}正在查询系统信息……${gl_bai}"
 	send_stats "系統資訊查詢"
 
 	ip_address
@@ -7359,7 +7359,7 @@ linux_tools() {
 			  install iftop
 			  clear
 			  iftop
-			  send_stats "安裝iftop"
+			  send_stats "安装iftop"
 			  ;;
 			7)
 			  clear
@@ -7367,7 +7367,7 @@ linux_tools() {
 			  clear
 			  echo "工具已安裝，使用方法如下："
 			  unzip
-			  send_stats "安裝unzip"
+			  send_stats "安装unzip"
 			  ;;
 			8)
 			  clear
@@ -7375,7 +7375,7 @@ linux_tools() {
 			  clear
 			  echo "工具已安裝，使用方法如下："
 			  tar --help
-			  send_stats "安裝tar"
+			  send_stats "安装tar"
 			  ;;
 			9)
 			  clear
@@ -7840,7 +7840,7 @@ docker_ssh_migration() {
 
 		# 還原 /home/docker 下的文件
 		if [ -f "$BACKUP_DIR/home_docker_files.tar.gz" ]; then
-			echo -e "${gl_kjlan}正在還原 /home/docker 下的檔案...${gl_bai}"
+			echo -e "${gl_kjlan}正在还原 /home/docker 下的文件...${gl_bai}"
 			mkdir -p /home/docker
 			tar -xzf "$BACKUP_DIR/home_docker_files.tar.gz" -C /
 			echo -e "${gl_lv}/home/docker 下的檔案已還原完成${gl_bai}"
@@ -9057,13 +9057,13 @@ linux_ldnmp() {
 	  clear
 	  echo -e "[${gl_huang}6/6${gl_bai}] 資料庫管理"
 	  echo "-------------"
-	  read -e -p "1. 我搭建新站        2. 我搭建老站有数据库备份： " use_db
+	  read -e -p "1. 我搭建新站 2. 我搭建老站有資料庫備份：" use_db
 	  case $use_db in
 		  1)
 			  echo
 			  ;;
 		  2)
-			  echo "数据库备份必须是.gz结尾的压缩包。請放到/home/目錄下，支援寶塔/1panel備份資料導入。"
+			  echo "資料庫備份必須是.gz結尾的壓縮包。請放到/home/目錄下，支援寶塔/1panel備份資料導入。"
 			  read -e -p "也可以輸入下載鏈接，遠端下載備份數據，直接回車將跳過遠端下載：" url_download_db
 
 			  cd /home/
@@ -9332,7 +9332,7 @@ linux_ldnmp() {
 			read -e -p "目標伺服器SSH連接埠 [預設22]:" TARGET_PORT
 			local TARGET_PORT=${TARGET_PORT:-22}
 			if [ -z "$remote_ip" ]; then
-			  echo "錯誤: 請輸入遠端伺服器IP。"
+			  echo "错误: 请输入远端服务器IP。"
 			  continue
 			fi
 			local latest_tar=$(ls -t /home/*.tar.gz | head -1)
@@ -9674,7 +9674,7 @@ moltbot_menu() {
 		echo -e "ClawdBot > MoltBot > OpenClaw 管理"
 		echo -e "$install_status $running_status $update_message"
 		echo "======================================="
-		echo "1. 安裝"
+		echo "1.  安装"
 		echo "2. 啟動"
 		echo "3. 停止"
 		echo "--------------------"
@@ -9936,9 +9936,9 @@ EOF
 			fi
 		fi
 
-		# 5. 選擇預設模型
+		# 5. 选择默认模型
 		echo
-		read -erp "請輸入預設 Model ID (或序號，留空則使用第一個):" input_model
+		read -erp "请输入默认 Model ID (或序号，留空则使用第一个): " input_model
 
 		if [[ -z "$input_model" && -n "$available_models" ]]; then
 			default_model=$(echo "$available_models" | head -1)
@@ -10035,8 +10035,8 @@ EOF
 			echo "----------------------------------------"
 
 			# 输出推荐的实用插件列表，便于用户复制
-			echo "推荐的实用插件（可直接复制名称输入）："
-			echo "feishu                # 飞书/Lark 集成 (当前已加载 ✓)"
+			echo "建議的實用外掛程式（可直接複製名稱輸入）："
+			echo "feishu # 飛書/Lark 整合 (目前已載入 ✓)"
 			echo "telegram # Telegram 機器人整合 (目前已載入 ✓)"
 			echo "memory-core # 核心記憶增強：基於檔案的上下文搜尋 (目前已載入 ✓)"
 			echo "@openclaw/slack # Slack 頻道與 DMs 深度連接"
@@ -10055,13 +10055,13 @@ EOF
 
 			# 1. 檢查是否輸入 0 退出
 			if [ "$plugin_name" = "0" ]; then
-				echo "操作已取消，退出插件安装。"
+				echo "操作已取消，退出插件安裝。"
 				break
 			fi
 
 			# 2. 驗證輸入是否為空
 			if [ -z "$plugin_name" ]; then
-				echo "錯誤：插件名稱不能為空，請重新輸入。"
+				echo "错误：插件名称不能为空，请重新输入。"
 				echo ""
 				continue
 			fi
@@ -10071,7 +10071,7 @@ EOF
 
 			# 2. 檢查系統是否已預先安裝（防止 duplicate id 衝突）
 			if [ -d "/usr/lib/node_modules/openclaw/extensions/$plugin_name" ]; then
-				echo "💡 偵測到系統目錄已存在該插件，正在直接啟動..."
+				echo "💡 检测到系统目录已存在该插件，正在直接激活..."
 				openclaw plugins enable "$plugin_name"
 			else
 				echo "📥 正在透過官方管道下載安裝插件..."
@@ -10133,7 +10133,7 @@ EOF
 			local plugin_id=$(echo "$raw_input" | sed 's|^@openclaw/||')
 			local plugin_full="$raw_input"
 
-			echo "🔍 正在检查插件状态..."
+			echo "🔍 正在檢查插件狀態..."
 
 			# 2. 檢查是否已經在 list 中且為 disabled (最常見的情況)
 			if echo "$plugin_list" | grep -qw "$plugin_id" && echo "$plugin_list" | grep "$plugin_id" | grep -q "disabled"; then
@@ -10160,7 +10160,7 @@ EOF
 					echo "⚠️ 官方頻道下載失敗，嘗試備選方案..."
 					# 備選 npm 安裝
 					if npm install -g "$plugin_full" --unsafe-perm; then
-						echo "✅ npm 安裝成功，嘗試啟用..."
+						echo "✅ npm 安装成功，尝试启用..."
 						openclaw plugins enable "$plugin_id"
 					else
 						echo "❌ 嚴重錯誤：無法取得該外掛程式。請檢查 ID 是否正確或網路是否可用。"
@@ -10202,7 +10202,7 @@ EOF
 			echo "apple-reminders # macOS 提醒事項管理 (待辦事項清單)"
 			echo "1password # 自動化讀取和注入 1Password 金鑰"
 			echo "gog # Google Workspace (Gmail/雲端盤/文件) 全能助手"
-			echo "things-mac # 深度整合 Things 3 任務管理"
+			echo "things-mac         # 深度整合 Things 3 任务管理"
 			echo "bluebubbles # 透過 BlueBubbles 完美收發 iMessage"
 			echo "himalaya # 終端郵件管理 (IMAP/SMTP 強力工具)"
 			echo "summarize # 網頁/播客/YouTube 影片內容一鍵總結"
@@ -10238,7 +10238,7 @@ EOF
 				# 執行重啟/啟動服務邏輯
 				start_gateway
 			else
-				echo "❌ 安裝失敗。請檢查技能名稱是否正確，或參考文件排查。"
+				echo "❌ 安裝失敗。请检查技能名称是否正确，或参考文档排查。"
 			fi
 
 			break_end
@@ -13738,7 +13738,7 @@ while true; do
 		local app_id="99"
 
 		local app_name="dsm群暉虛擬機"
-		local app_text="Docker容器中的虛擬DSM"
+		local app_text="Docker容器中的虚拟DSM"
 		local app_url="官網:${gh_https_url}github.com/vdsm/virtual-dsm"
 		local docker_name="dsm"
 		local docker_port="8099"
@@ -13822,7 +13822,7 @@ while true; do
 	  101|moneyprinterturbo)
 		local app_id="101"
 		local app_name="AI影片產生工具"
-		local app_text="MoneyPrinterTurbo是一款使用AI大模型合成高清短影片的工具"
+		local app_text="MoneyPrinterTurbo是一款使用AI大模型合成高清短视频的工具"
 		local app_url="官方網站:${gh_https_url}github.com/harry0703/MoneyPrinterTurbo"
 		local docker_name="moneyprinterturbo"
 		local docker_port="8101"
@@ -14033,7 +14033,7 @@ discourse,yunsou,ahhhhfs,nsgame,gying" \
 	  108|langbot)
 		local app_id="108"
 		local app_name="LangBot聊天機器人"
-		local app_text="是一个开源的大语言模型原生即时通信机器人开发平台"
+		local app_text="是一個開源的大語言模式原生即時通訊機器人開發平台"
 		local app_url="官方網站:${gh_https_url}github.com/langbot-app/LangBot"
 		local docker_name="langbot_plugin_runtime"
 		local docker_port="8108"
@@ -14648,7 +14648,7 @@ net_menu() {
 		show_nics
 		echo
 		echo "=========== 網路卡管理選單 ==========="
-		echo "1. 啟用網卡"
+		echo "1. 启用网卡"
 		echo "2. 停用網路卡"
 		echo "3. 查看網卡詳細信息"
 		echo "4. 刷新網卡資訊"
