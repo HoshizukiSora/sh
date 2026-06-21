@@ -1475,7 +1475,7 @@ install_ssltls_text() {
 
 
 add_ssl() {
-echo -e "${gl_huang}快速申請SSL證書，過期前自動續約${gl_bai}"
+echo -e "${gl_huang}快速申請SSL證書，過期前自動續簽${gl_bai}"
 yuming="${1:-}"
 if [ -z "$yuming" ]; then
 	add_yuming
@@ -2227,7 +2227,7 @@ web_security() {
 					  sed -i "s/APIKEY00000/$cftoken/g" /etc/fail2ban/action.d/cloudflare-docker.conf
 					  f2b_status
 
-					  echo "已配置cloudflare模式，可在cf後台，站點-安全性-事件中查看攔截記錄"
+					  echo "已設定cloudflare模式，可在cf後台，網站-安全性-事件中查看攔截記錄"
 					  ;;
 
 				  22)
@@ -3810,7 +3810,7 @@ ldnmp_web_status() {
 			2)
 				send_stats "克隆站點域名"
 				read -e -p "請輸入舊網域名稱:" oddyuming
-				read -e -p "請輸入新網域:" yuming
+				read -e -p "請輸入新網域名稱:" yuming
 				install_certbot
 				install_ssltls
 				certs_status
@@ -3851,7 +3851,7 @@ ldnmp_web_status() {
 				send_stats "建立關聯站點"
 				echo -e "為現有的站點再關聯一個新網域用於訪問"
 				read -e -p "請輸入現有的網域名稱:" oddyuming
-				read -e -p "請輸入新網域:" yuming
+				read -e -p "請輸入新網域名稱:" yuming
 				install_certbot
 				install_ssltls
 				certs_status
@@ -9885,7 +9885,7 @@ EOF
 
 	add-openclaw-provider-interactive() {
 		send_stats "新增API"
-		echo "=== 互動式新增 OpenClaw Provider (全量模型) ==="
+		echo "=== 互動式加入 OpenClaw Provider (全量模型) ==="
 
 		# 1. Provider 名稱
 		read -erp "請輸入 Provider 名稱 (如: deepseek):" provider_name
@@ -10042,15 +10042,15 @@ EOF
 			echo "@openclaw/slack # Slack 頻道與 DMs 深度連接"
 			echo "@openclaw/bluebubbles # iMessage 橋接 (macOS 用戶首選)"
 			echo "@openclaw/msteams # Microsoft Teams 企業通訊集成"
-			echo "@openclaw/voice-call # 語音通話外掛程式 (基於 Twilio 等後端)"
+			echo "@openclaw/voice-call  # 语音通话插件 (基于 Twilio 等后端)"
 			echo "@openclaw/discord # Discord 頻道自動化管理"
 			echo "@openclaw/nostr # Nostr 協定：隱私安全加密聊天"
 			echo "lobster # 審批工作流程：帶有人工幹預的自動任務"
-			echo "memory-lancedb # 長期記憶增強：基於向量資料庫的精準召回"
+			echo "memory-lancedb        # 长期记忆增强：基于向量数据库的精准召回"
 			echo "copilot-proxy # GitHub Copilot 代理程式存取增強"
 			echo "----------------------------------------"
 
-			# 提示使用者輸入外掛名稱
+			# 提示用户输入插件名称
 			read -e -p "請輸入要安裝的插件名稱（輸入 0 退出）：" plugin_name
 
 			# 1. 檢查是否輸入 0 退出
@@ -10071,7 +10071,7 @@ EOF
 
 			# 2. 檢查系統是否已預先安裝（防止 duplicate id 衝突）
 			if [ -d "/usr/lib/node_modules/openclaw/extensions/$plugin_name" ]; then
-				echo "💡 偵測到系統目錄已存在該插件，正在直接啟動..."
+				echo "💡 检测到系统目录已存在该插件，正在直接激活..."
 				openclaw plugins enable "$plugin_name"
 			else
 				echo "📥 正在透過官方管道下載安裝插件..."
@@ -10133,7 +10133,7 @@ EOF
 			local plugin_id=$(echo "$raw_input" | sed 's|^@openclaw/||')
 			local plugin_full="$raw_input"
 
-			echo "🔍 正在檢查插件狀態..."
+			echo "🔍 正在检查插件状态..."
 
 			# 2. 檢查是否已經在 list 中且為 disabled (最常見的情況)
 			if echo "$plugin_list" | grep -qw "$plugin_id" && echo "$plugin_list" | grep "$plugin_id" | grep -q "disabled"; then
@@ -10171,7 +10171,7 @@ EOF
 				fi
 			fi
 
-			echo "🔄 正在重啟 OpenClaw 服務以載入新插件..."
+			echo "🔄 正在重启 OpenClaw 服务以加载新插件..."
 			start_gateway
 			break_end
 		done
@@ -10343,7 +10343,7 @@ EOF
 
 		domains=$(openclaw_find_webui_domain)
 		if [ -n "$domains" ]; then
-			echo "網域名稱地址："
+			echo "網域地址："
 			echo "$domains" | while read d; do
 				echo "https://${d}/#token=${token}"
 			done
@@ -10556,7 +10556,7 @@ while true; do
 	  echo -e "${gl_kjlan}97.  ${color97}WireGuard組網(服務端)${gl_kjlan}98.  ${color98}WireGuard組網(客戶端)"
 	  echo -e "${gl_kjlan}99.  ${color99}DSM群暉虛擬機${gl_kjlan}100. ${color100}Syncthing點對點檔案同步工具"
 	  echo -e "${gl_kjlan}-------------------------"
-	  echo -e "${gl_kjlan}101. ${color101}AI影片生成工具${gl_kjlan}102. ${color102}VoceChat多人線上聊天系統"
+	  echo -e "${gl_kjlan}101. ${color101}AI影片產生工具${gl_kjlan}102. ${color102}VoceChat多人線上聊天系統"
 	  echo -e "${gl_kjlan}103. ${color103}Umami網站統計工具${gl_kjlan}104. ${color104}Stream四層代理轉送工具"
 	  echo -e "${gl_kjlan}105. ${color105}思源筆記${gl_kjlan}106. ${color106}Drawnix開源白板工具"
 	  echo -e "${gl_kjlan}107. ${color107}PanSou網盤搜尋${gl_kjlan}108. ${color108}LangBot聊天機器人"
@@ -11992,7 +11992,7 @@ while true; do
 			ip_address
 			echo "已經安裝完成"
 			check_docker_app_ip
-			echo "初始使用者名稱密碼皆為: admin"
+			echo "初始使用者名稱密碼均為: admin"
 		}
 
 		docker_app_update() {
@@ -13821,7 +13821,7 @@ while true; do
 
 	  101|moneyprinterturbo)
 		local app_id="101"
-		local app_name="AI影片生成工具"
+		local app_name="AI影片產生工具"
 		local app_text="MoneyPrinterTurbo是一款使用AI大模型合成高清短影片的工具"
 		local app_url="官方網站:${gh_https_url}github.com/harry0703/MoneyPrinterTurbo"
 		local docker_name="moneyprinterturbo"
