@@ -61,7 +61,7 @@ CheckFirstRun_true() {
 
 # 이 기능은 함수에 묻혀있는 정보를 수집하고 사용자가 사용하는 현재 스크립트 버전 번호, 사용 시간, 시스템 버전, CPU 아키텍처, 시스템 국가 및 기능 이름을 기록합니다. 민감한 정보는 포함되어 있지 않으니 걱정하지 마세요! 저를 믿어주세요!
 # 이 기능은 왜 설계되었나요? 그 목적은 사용자가 사용하고 싶어하는 기능을 더 잘 이해하고, 기능을 더욱 최적화하고 사용자 요구에 맞는 더 많은 기능을 출시하는 것입니다.
-# send_stats 함수 호출 위치에 대한 전문을 검색할 수 있습니다. 투명하고 오픈 소스입니다. 우려되는 사항이 있는 경우 이용을 거부하실 수 있습니다.
+# send_stats 함수 호출 위치에 대한 전문을 검색할 수 있습니다. 투명하고 오픈 소스입니다. 불편하신 점이 있으시면 이용을 거부하실 수 있습니다.
 
 
 
@@ -1093,7 +1093,7 @@ iptables_panel() {
 		  echo "3. 모든 포트를 엽니다. 4. 모든 포트를 닫습니다."
 		  echo "------------------------"
 		  echo "5. IP 화이트리스트 6. IP 블랙리스트"
-		  echo "7. 지정된 IP를 삭제합니다."
+		  echo "7. 지정된 IP 지우기"
 		  echo "------------------------"
 		  echo "11. PING 허용 12. PING 비활성화"
 		  echo "------------------------"
@@ -1200,7 +1200,7 @@ iptables_panel() {
 				  ;;
 
 			  17)
-				  read -e -p "지워진 국가 코드를 입력하십시오(여러 국가 코드는 CN US JP와 같이 공백으로 구분될 수 있음)." country_code
+				  read -e -p "삭제된 국가 코드를 입력하십시오(여러 국가 코드는 CN US JP와 같이 공백으로 구분될 수 있음)." country_code
 				  manage_country_rules unblock $country_code
 				  send_stats "명확한 국가$country_codeIP"
 				  ;;
@@ -3340,10 +3340,10 @@ nginx_install_status() {
 
 ldnmp_web_on() {
 	  clear
-	  echo "당신의$webname건설되었습니다!"
+	  echo "당신의$webname지어졌습니다!"
 	  echo "https://$yuming"
 	  echo "------------------------"
-	  echo "$webname설치 정보는 다음과 같습니다."
+	  echo "$webname설치정보는 다음과 같습니다."
 
 }
 
@@ -3353,7 +3353,7 @@ nginx_web_on() {
 	local ipv4_pattern='^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$'
 	local ipv6_pattern='^(([0-9A-Fa-f]{1,4}:){1,7}:|([0-9A-Fa-f]{1,4}:){7,7}[0-9A-Fa-f]{1,4}|::1)$'
 
-	echo "당신의$webname건설되었습니다!"
+	echo "당신의$webname지어졌습니다!"
 
 	if [[ "$yuming" =~ $ipv4_pattern || "$yuming" =~ $ipv6_pattern ]]; then
 		mv /home/web/conf.d/"$yuming".conf /home/web/conf.d/"${yuming}_${access_port}".conf
@@ -3429,7 +3429,7 @@ ldnmp_Proxy() {
 	check_ip_and_get_access_port "$yuming"
 
 	if [ -z "$reverseproxy" ]; then
-		read -e -p "안티 세대 IP를 입력하십시오(기본값은 로컬 IP 127.0.0.1로 설정하려면 Enter를 누르십시오)." reverseproxy
+		read -e -p "세대 방지 IP를 입력하십시오(기본값은 로컬 IP 127.0.0.1로 설정하려면 Enter를 누르십시오)." reverseproxy
 		reverseproxy=${reverseproxy:-127.0.0.1}
 	fi
 
@@ -3645,7 +3645,7 @@ stream_panel() {
 
 ldnmp_Proxy_backend_stream() {
 	clear
-	webname="스트림 4계층 프록시-로드 밸런싱"
+	webname="스트리밍 4계층 프록시-로드 밸런싱"
 
 	send_stats "설치하다$webname"
 	echo "배포 시작$webname"
@@ -3693,7 +3693,7 @@ ldnmp_Proxy_backend_stream() {
 
 	docker exec nginx nginx -s reload
 	clear
-	echo "당신의$webname건설되었습니다!"
+	echo "당신의$webname지어졌습니다!"
 	echo "------------------------"
 	echo "방문 주소:"
 	ip_address
@@ -4026,7 +4026,7 @@ EOF
 
 	donlond_frp frps
 
-	# 생성된 정보 출력
+	# 생성된 정보를 출력
 	ip_address
 	echo "------------------------"
 	echo "클라이언트 배포에 필요한 매개변수"
@@ -4088,7 +4088,7 @@ remote_port = ${remote_port}
 
 EOF
 
-	# 생성된 정보 출력
+	# 생성된 정보를 출력
 	echo "제공하다$service_namefrpc.toml에 성공적으로 추가되었습니다."
 
 	docker restart frpc
@@ -4335,7 +4335,7 @@ frps_panel() {
 
 			8)
 				send_stats "IP 접근 차단"
-				echo "역방향 도메인 이름 접근을 가지고 있는 경우, 이 기능을 사용하면 IP+포트 접근을 차단할 수 있어 더욱 안전합니다."
+				echo "역방향 도메인 이름 접근이 있는 경우, 이 기능을 사용하면 IP+포트 접근을 차단할 수 있어 더욱 안전합니다."
 				read -e -p "차단할 포트를 입력하세요:" frps_port
 				block_host_port "$frps_port" "$ipv4_address"
 				;;
@@ -5720,7 +5720,7 @@ elrepo() {
 		  echo "영상 소개: https://www.bilibili.com/video/BV1mH4y1w7qA?t=529.2"
 		  echo "------------------------------------------------"
 		  echo "Red Hat 시리즈 배포판 CentOS/RedHat/Alma/Rocky/oracle만 지원"
-		  echo "Linux 커널을 업그레이드하면 시스템 성능과 보안이 향상될 수 있습니다. 가능하다면 시도해 보시고, 프로덕션 환경도 주의해서 업그레이드하시는 것을 추천드립니다!"
+		  echo "Linux 커널을 업그레이드하면 시스템 성능과 보안이 향상될 수 있습니다. 가능하다면 시도해 보시고, 프로덕션 환경을 주의해서 업그레이드하시는 것을 추천드립니다!"
 		  echo "------------------------------------------------"
 		  read -e -p "계속하시겠습니까? (예/아니요):" choice
 
@@ -5756,7 +5756,7 @@ clamav_freshclam() {
 
 clamav_scan() {
 	if [ $# -eq 0 ]; then
-		echo "스캔할 디렉터리를 지정하세요."
+		echo "스캔할 디렉터리를 지정하십시오."
 		return
 	fi
 
@@ -6055,7 +6055,7 @@ Kernel_optimize() {
 			  cd ~
 			  clear
 			  optimize_web_server
-			  send_stats "웹사이트 최적화 모델"
+			  send_stats "웹사이트 최적화 모드"
 			  ;;
 		  4)
 			  cd ~
@@ -7784,7 +7784,7 @@ docker_ssh_migration() {
 			[[ ! -f "$json" ]] && continue
 			has_container=true
 			container=$(basename "$json" | sed 's/_inspect.json//')
-			echo -e "${gl_lv}처리용기:$container${gl_bai}"
+			echo -e "${gl_lv}처리 용기:$container${gl_bai}"
 
 			# 컨테이너가 이미 존재하고 실행 중인지 확인하세요.
 			if docker ps --format '{{.Names}}' | grep -q "^${container}$"; then
@@ -8057,7 +8057,7 @@ linux_docker() {
 					  3)
 						  send_stats "네트워크에 가입하세요"
 						  read -e -p "종료 네트워크 이름:" dockernetwork
-						  read -e -p "해당 컨테이너는 네트워크를 종료합니다(여러 컨테이너 이름을 공백으로 구분하세요)." dockernames
+						  read -e -p "이러한 컨테이너는 네트워크를 종료합니다(여러 컨테이너 이름을 공백으로 구분하세요)." dockernames
 
 						  for dockername in $dockernames; do
 							  docker network disconnect $dockernetwork $dockername
@@ -8103,7 +8103,7 @@ linux_docker() {
 
 						  ;;
 					  2)
-						  read -e -p "삭제 볼륨 이름을 입력하세요(여러 볼륨 이름을 공백으로 구분하세요):" dockerjuans
+						  read -e -p "삭제 볼륨 이름을 입력하십시오(여러 볼륨 이름을 공백으로 구분하십시오):" dockerjuans
 
 						  for dockerjuan in $dockerjuans; do
 							  docker volume rm $dockerjuan
@@ -8418,7 +8418,7 @@ linux_Oracle() {
 		  1)
 			  clear
 			  echo "활성 스크립트: CPU 사용량 10-20% 메모리 사용량 20%"
-			  read -e -p "정말로 설치하시겠습니까? (예/아니요):" choice
+			  read -e -p "설치하시겠습니까? (예/아니요):" choice
 			  case "$choice" in
 				[Yy])
 
@@ -8815,7 +8815,7 @@ linux_ldnmp() {
 	  echo "사용자 이름: 관리자"
 	  echo "비밀번호: 관리자"
 	  echo "------------------------"
-	  echo "로그인 시 오른쪽 상단에 빨간색 error0이 나타나는 경우, 다음 명령어를 사용해주세요."
+	  echo "로그인 시 오른쪽 상단에 빨간색 error0이 나타나는 경우, 다음 명령어를 사용하시기 바랍니다."
 	  echo "유니콘 숫자카드가 왜 이렇게 귀찮고 이런 문제가 있는지에 대해서도 너무 화가 납니다!"
 	  echo "sed -i 's/ADMIN_HTTPS=false/ADMIN_HTTPS=true/g' /home/web/html/$yuming/dujiaoka/.env"
 
@@ -9153,7 +9153,7 @@ linux_ldnmp() {
 	  echo "배포 시작$webname"
 	  add_yuming
 	  echo -e "도메인 이름 형식:${gl_huang}google.com${gl_bai}"
-	  read -e -p "역방향 프록시 도메인 이름을 입력하세요." fandai_yuming
+	  read -e -p "역방향 프록시 도메인 이름을 입력하세요:" fandai_yuming
 	  nginx_install_status
 
 	  install_ssltls
@@ -9805,7 +9805,7 @@ moltbot_menu() {
 			[[ $first == false ]] && models_array+=","
 			first=false
 
-			# 모델명을 기반으로 컨텍스트 창 추론
+			# 모델명을 기준으로 컨텍스트 창 추론
 			local context_window=131072
 			local max_tokens=8192
 			local input_cost=0.14
@@ -10078,7 +10078,7 @@ EOF
 				# package.json의 사양 확인을 자동으로 처리하는 openclaw의 자체 설치 명령을 사용합니다.
 				openclaw plugins install "$plugin_name"
 
-				# 3. openclaw install에서 오류가 발생하면 일반 npm 패키지로 설치해 보세요(마지막 대안).
+				# 3. openclaw install에서 오류가 보고되면 일반 npm 패키지로 설치해 보세요(마지막 대안).
 				if [ $? -ne 0 ]; then
 					echo "⚠️ 공식 설치에 실패했습니다. npm을 통해 전역적으로 강제 설치를 시도해보세요..."
 					npm install -g "$plugin_name" --unsafe-perm
@@ -10446,7 +10446,7 @@ EOF
 				openclaw onboard --install-daemon
 				break_end
 				;;
-			12) send_stats "상태 감지 및 수리"
+			12) send_stats "상태 감지 및 복구"
 				openclaw doctor --fix
 				break_end
 			 	;;
@@ -10566,7 +10566,7 @@ while true; do
 	  echo -e "${gl_kjlan}113. ${color113}파이어폭스 브라우저${gl_kjlan}114. ${color114}ClawdBot/Moltbot 로봇${gl_huang}★${gl_bai}"
 	  echo -e "${gl_kjlan}-------------------------"
 	  echo -e "${gl_kjlan}타사 애플리케이션 목록"
-  	  echo -e "${gl_kjlan}귀하의 앱이 여기에 표시되기를 원하십니까? 개발자 가이드를 확인하세요.${gl_huang}https://dev.kejilion.sh/${gl_bai}"
+  	  echo -e "${gl_kjlan}귀하의 앱이 여기에 표시되기를 원하십니까? 개발자 가이드를 확인하세요:${gl_huang}https://dev.kejilion.sh/${gl_bai}"
 
 	  for f in "$HOME"/apps/*.conf; do
 		  [ -e "$f" ] || continue
@@ -10768,7 +10768,7 @@ while true; do
 		}
 
 
-		local docker_describe="webtop은 Ubuntu 기반 컨테이너입니다. 해당 IP에 접근할 수 없는 경우, 접근할 도메인 이름을 추가해주세요."
+		local docker_describe="webtop은 Ubuntu 기반 컨테이너입니다. 해당 IP에 접속할 수 없는 경우, 접속할 도메인 이름을 추가해 주세요."
 		local docker_url="공식 홈페이지 소개: https://docs.linuxserver.io/images/docker-webtop/"
 		local docker_use=""
 		local docker_passwd=""
@@ -10868,7 +10868,7 @@ while true; do
 			check_docker_image_update $docker_name
 
 			clear
-			echo -e "우정$check_docker $update_status"
+			echo -e "우편 서비스$check_docker $update_status"
 			echo "poste.io는 오픈 소스 메일 서버 솔루션입니다."
 			echo "영상 소개: https://www.bilibili.com/video/BV1wv421C71t?t=0.1"
 
@@ -11468,7 +11468,7 @@ while true; do
 		}
 
 
-		local docker_describe="웹탑은 중국어 버전의 Alpine 컨테이너를 기반으로 합니다. 해당 IP에 접근할 수 없는 경우, 접근할 도메인 이름을 추가해주세요."
+		local docker_describe="웹탑은 중국어 버전의 Alpine 컨테이너를 기반으로 합니다. 해당 IP에 접속할 수 없는 경우, 접속할 도메인 이름을 추가해 주세요."
 		local docker_url="공식 홈페이지 소개: https://docs.linuxserver.io/images/docker-webtop/"
 		local docker_use=""
 		local docker_passwd=""
@@ -11607,7 +11607,7 @@ while true; do
 
 
 		local docker_describe="포토프리즘은 매우 강력한 개인 사진 앨범 시스템입니다."
-		local docker_url="공식 홈페이지 소개: https://www.photoprism.app/"
+		local docker_url="공식 홈페이지 소개 : https://www.photoprism.app/"
 		local docker_use="echo \"계정: admin 비밀번호:$rootpasswd\""
 		local docker_passwd=""
 		local app_size="1"
@@ -12139,7 +12139,7 @@ while true; do
 
 		}
 
-		local docker_describe="OpenWebUI는 새로운 llama3 대규모 언어 모델에 연결되는 대규모 언어 모델 웹 페이지 프레임워크입니다."
+		local docker_describe="OpenWebUI는 새로운 llama3 대규모 언어 모델에 연결된 대규모 언어 모델 웹 페이지 프레임워크입니다."
 		local docker_url="공식 웹사이트 소개:${gh_https_url}github.com/open-webui/open-webui"
 		local docker_use="docker exec ollama ollama run llama3.2:1b"
 		local docker_passwd=""
@@ -12301,7 +12301,7 @@ while true; do
 
 		local app_id="60"
 		local app_name="JumpServer 오픈 소스 요새 머신"
-		local app_text="오픈소스 PAM(Privileged Access Management) 도구입니다. 이 프로그램은 포트 80을 사용하며 액세스를 위한 도메인 이름 추가를 지원하지 않습니다."
+		local app_text="오픈소스 권한 있는 액세스 관리(PAM) 도구입니다. 이 프로그램은 포트 80을 사용하며 액세스를 위한 도메인 이름 추가를 지원하지 않습니다."
 		local app_url="공식 소개:${gh_https_url}github.com/jumpserver/jumpserver"
 		local docker_name="jms_web"
 		local docker_port="80"
@@ -12547,7 +12547,7 @@ while true; do
 		}
 
 		local docker_describe="언제 어디서나 무료 오픈 소스 SFTP FTP WebDAV 파일 전송 도구"
-		local docker_url="공식 홈페이지 소개 : https://sftpgo.com/"
+		local docker_url="官网介绍: https://sftpgo.com/"
 		local docker_use=""
 		local docker_passwd=""
 		local app_size="1"
@@ -13056,7 +13056,7 @@ while true; do
 
 		local docker_describe="경량 자체 호스팅 서버 모니터링 도구"
 		local docker_url="공식 웹사이트 소개:${gh_https_url}github.com/komari-monitor/komari/tree/main"
-		local docker_use="echo \"기본 계정: admin 기본 비밀번호: 1212156\""
+		local docker_use="echo \"默认账号: admin  默认密码: 1212156\""
 		local docker_passwd=""
 		local app_size="1"
 		docker_app
@@ -13098,7 +13098,7 @@ while true; do
 
 		  local app_id="85"
 		  local app_name="이미치 픽처 비디오 매니저"
-		  local app_text="고성능 자체 호스팅 사진 및 비디오 관리 솔루션입니다."
+		  local app_text="高性能自托管照片和视频管理解决方案。"
 		  local app_url="공식 웹사이트 소개:${gh_https_url}github.com/immich-app/immich"
 		  local docker_name="immich_server"
 		  local docker_port="8085"
@@ -13222,8 +13222,8 @@ while true; do
 		}
 
 		local docker_describe="오픈 소스, 자체 구축한 무료 라이브 방송 플랫폼"
-		local docker_url="공식 홈페이지 소개 : https://owncast.online"
-		local docker_use="echo \"접속 주소 뒤에는 /admin이 붙어서 관리자 페이지에 접근합니다\""
+		local docker_url="官网介绍: https://owncast.online"
+		local docker_use="echo \"访问地址后面带 /admin 访问管理员页面\""
 		local docker_passwd="echo \"초기 계정: admin 초기 비밀번호: abc123 로그인 후 시간 내에 로그인 비밀번호를 변경해주세요\""
 		local app_size="1"
 		docker_app
@@ -13250,7 +13250,7 @@ while true; do
 
 		}
 
-		local docker_describe="익명의 비밀번호로 텍스트와 파일을 공유하고 빠른 배송과 같은 파일 픽업"
+		local docker_describe="匿名口令分享文本和文件，像拿快递一样取文件"
 		local docker_url="공식 웹사이트 소개:${gh_https_url}github.com/vastsa/FileCodeBox"
 		local docker_use="echo \"접속 주소 뒤에는 /#/admin이 붙어서 관리자 페이지에 접속합니다\""
 		local docker_passwd="echo \"관리자 비밀번호: FileCodeBox2023\""
@@ -13307,7 +13307,7 @@ while true; do
 		}
 
 		local docker_describe="Matrix는 분산형 채팅 프로토콜입니다."
-		local docker_url="공식 홈페이지 소개 : https://matrix.org/"
+		local docker_url="官网介绍: https://matrix.org/"
 		local docker_use=""
 		local docker_passwd=""
 		local app_size="1"
@@ -13386,7 +13386,7 @@ while true; do
 		}
 
 		local docker_describe="웹 기반 파일 관리자입니다"
-		local docker_url="공식 홈페이지 소개 : https://filebrowser.org/"
+		local docker_url="官网介绍: https://filebrowser.org/"
 		local docker_use="docker logs filebrowser"
 		local docker_passwd=""
 		local app_size="1"
@@ -13822,7 +13822,7 @@ while true; do
 	  101|moneyprinterturbo)
 		local app_id="101"
 		local app_name="AI 영상 생성 도구"
-		local app_text="MoneyPrinterTurbo는 AI 대형 모델을 사용하여 고화질 짧은 동영상을 합성하는 도구입니다."
+		local app_text="MoneyPrinterTurbo是一款使用AI大模型合成高清短视频的工具"
 		local app_url="공식 웹사이트:${gh_https_url}github.com/harry0703/MoneyPrinterTurbo"
 		local docker_name="moneyprinterturbo"
 		local docker_port="8101"
@@ -13983,7 +13983,7 @@ while true; do
 
 		}
 
-		local docker_describe="마인드맵, 플로우차트 등을 통합한 강력한 오픈소스 화이트보드 도구입니다."
+		local docker_describe="是一款强大的开源白板工具，集成思维导图、流程图等。"
 		local docker_url="공식 웹사이트 소개:${gh_https_url}github.com/plait-board/drawnix"
 		local docker_use=""
 		local docker_passwd=""
@@ -14632,7 +14632,7 @@ net_menu() {
 	send_stats "네트워크 카드 관리 도구"
 	show_nics() {
 		echo "================ 현재 네트워크 카드 정보 ================="
-		printf "%-18s %-12s %-20s %-26s\n" "네트워크 카드 이름" "상태" "IP 주소" "MAC 주소"
+		printf "%-18s %-12s %-20s %-26s\n" "네트워크 카드 이름" "상태" "IP 주소" "MAC地址"
 		echo "------------------------------------------------"
 		for nic in $(ls /sys/class/net); do
 			state=$(cat /sys/class/net/$nic/operstate 2>/dev/null)
@@ -15009,10 +15009,10 @@ linux_Settings() {
 	  echo -e "시스템 도구"
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}1.   ${gl_bai}스크립트 시작 단축키 설정${gl_kjlan}2.   ${gl_bai}로그인 비밀번호 변경"
-	  echo -e "${gl_kjlan}3.   ${gl_bai}사용자 비밀번호 로그인 모드${gl_kjlan}4.   ${gl_bai}지정된 Python 버전을 설치합니다."
+	  echo -e "${gl_kjlan}3.   ${gl_bai}사용자 비밀번호 로그인 모드${gl_kjlan}4.   ${gl_bai}지정된 버전의 Python 설치"
 	  echo -e "${gl_kjlan}5.   ${gl_bai}모든 포트 열기${gl_kjlan}6.   ${gl_bai}SSH 연결 포트 수정"
 	  echo -e "${gl_kjlan}7.   ${gl_bai}DNS 주소 최적화${gl_kjlan}8.   ${gl_bai}한 번의 클릭으로 시스템을 다시 설치${gl_huang}★${gl_bai}"
-	  echo -e "${gl_kjlan}9.   ${gl_bai}ROOT 계정을 비활성화하고 새 계정을 만듭니다.${gl_kjlan}10.  ${gl_bai}우선 순위 ipv4/ipv6 전환"
+	  echo -e "${gl_kjlan}9.   ${gl_bai}ROOT 계정을 비활성화하고 새 계정을 만듭니다.${gl_kjlan}10.  ${gl_bai}우선순위 ipv4/ipv6 전환"
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}11.  ${gl_bai}항만점유현황 확인${gl_kjlan}12.  ${gl_bai}가상 메모리 크기 수정"
 	  echo -e "${gl_kjlan}13.  ${gl_bai}사용자 관리${gl_kjlan}14.  ${gl_bai}사용자/비밀번호 생성기"
@@ -15022,7 +15022,7 @@ linux_Settings() {
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}21.  ${gl_bai}기본 호스트 확인${gl_kjlan}22.  ${gl_bai}SSH 방어 프로그램"
 	  echo -e "${gl_kjlan}23.  ${gl_bai}전류 제한 자동 종료${gl_kjlan}24.  ${gl_bai}사용자 키 로그인 모드"
-	  echo -e "${gl_kjlan}25.  ${gl_bai}TG-bot 시스템 모니터링 및 조기경보${gl_kjlan}26.  ${gl_bai}OpenSSH 고위험 취약점 수정"
+	  echo -e "${gl_kjlan}25.  ${gl_bai}TG-bot 시스템 모니터링 및 조기 경보${gl_kjlan}26.  ${gl_bai}OpenSSH 고위험 취약점 수정"
 	  echo -e "${gl_kjlan}27.  ${gl_bai}Red Hat Linux 커널 업그레이드${gl_kjlan}28.  ${gl_bai}Linux 시스템 커널 매개변수 최적화${gl_huang}★${gl_bai}"
 	  echo -e "${gl_kjlan}29.  ${gl_bai}바이러스 검사 도구${gl_huang}★${gl_bai}                     ${gl_kjlan}30.  ${gl_bai}파일 관리자"
 	  echo -e "${gl_kjlan}------------------------"
@@ -15494,7 +15494,7 @@ EOF
 				echo "유럽"
 				echo "11. 영국 런던 시간 12. 프랑스 파리 시간"
 				echo "13. 독일 베를린 시간 14. 러시아 모스크바 시간"
-				echo "15. 네덜란드 위트라흐트 시간 16. 스페인 마드리드 시간"
+				echo "15. 네덜란드 유트라흐트 시간 16. 스페인 마드리드 시간"
 				echo "------------------------"
 				echo "미국"
 				echo "21. 미국 서부 시간 22. 미국 동부 시간"
@@ -15657,7 +15657,7 @@ EOF
 
 						  case $dingshi in
 							  1)
-								  read -e -p "작업을 실행하기로 선택한 날은 언제입니까? (1-30):" day
+								  read -e -p "작업을 실행하기로 선택한 달의 날짜는 무엇입니까? (1-30):" day
 								  (crontab -l ; echo "0 0 $day * * $newquest") | crontab - > /dev/null 2>&1
 								  ;;
 							  2)
@@ -15817,7 +15817,7 @@ EOF
 			  root_use
 			  send_stats "전신 경고"
 			  echo "TG-bot 모니터링 및 조기경보 기능"
-			  echo "영상 소개: https://youtu.be/vLL-eb3Z_TY"
+			  echo "영상소개: https://youtu.be/vLL-eb3Z_TY"
 			  echo "------------------------------------------------"
 			  echo "로컬 CPU, 메모리, 하드 디스크, 트래픽 및 SSH 로그인에 대한 실시간 모니터링 및 경고를 달성하려면 경고를 수신하도록 tg 로봇 API 및 사용자 ID를 구성해야 합니다."
 			  echo "임계값에 도달하면 경고 메시지가 사용자에게 전송됩니다."
@@ -16261,7 +16261,7 @@ linux_file() {
 					continue
 				fi
 
-				read -e -p "대상 경로(새 파일 또는 디렉터리 이름 포함)를 입력하십시오." dest_path
+				read -e -p "대상 경로(새 파일 또는 디렉터리 이름 포함)를 입력하세요." dest_path
 				if [ -z "$dest_path" ]; then
 					echo "오류: 대상 경로를 입력하십시오."
 					send_stats "파일 또는 디렉터리 이동 실패: 대상 경로가 지정되지 않았습니다."
@@ -16281,7 +16281,7 @@ linux_file() {
 					continue
 				fi
 
-				read -e -p "대상 경로(새 파일 또는 디렉터리 이름 포함)를 입력하십시오." dest_path
+				read -e -p "대상 경로(새 파일 또는 디렉터리 이름 포함)를 입력하세요." dest_path
 				if [ -z "$dest_path" ]; then
 					echo "오류: 대상 경로를 입력하십시오."
 					send_stats "파일 또는 디렉터리 복사 실패: 대상 경로가 지정되지 않았습니다."
@@ -16380,7 +16380,7 @@ run_commands_on_servers() {
 	# 추출된 정보를 배열로 변환
 	IFS=$'\n' read -r -d '' -a SERVER_ARRAY <<< "$SERVERS"
 
-	# 서버를 순회하고 명령을 실행합니다.
+	# 서버를 탐색하고 명령을 실행합니다.
 	for ((i=0; i<${#SERVER_ARRAY[@]}; i+=5)); do
 		local name=${SERVER_ARRAY[i]}
 		local hostname=${SERVER_ARRAY[i+1]}
@@ -16463,7 +16463,7 @@ while true; do
 		  5)
 			  clear
 			  send_stats "클러스터 복원"
-			  echo "귀하의 server.py를 업로드하고 업로드를 시작하려면 아무 키나 누르십시오!"
+			  echo "server.py를 업로드하고 아무 키나 눌러 업로드를 시작하세요!"
 			  echo -e "업로드해주세요${gl_huang}servers.py${gl_bai}파일을 제출하다${gl_huang}/root/cluster/${gl_bai}복원 완료!"
 			  break_end
 			  ;;
@@ -16570,7 +16570,7 @@ games_server_tools() {
 	  echo -e "게임 서버 오프닝 스크립트 모음"
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}1. ${gl_bai}Eudemons Parlu 서버 오픈 스크립트"
-	  echo -e "${gl_kjlan}2. ${gl_bai}Minecraft 서버 오프닝 스크립트"
+	  echo -e "${gl_kjlan}2. ${gl_bai}Minecraft 서버 열기 스크립트"
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}0. ${gl_bai}메인 메뉴로 돌아가기"
 	  echo -e "${gl_kjlan}------------------------${gl_bai}"
@@ -16582,7 +16582,7 @@ games_server_tools() {
 			 curl -sS -O ${gh_proxy}raw.githubusercontent.com/kejilion/sh/main/palworld.sh ; chmod +x palworld.sh ; ./palworld.sh
 			 exit
 			 ;;
-		  2) send_stats "Minecraft 서버 오프닝 스크립트" ; cd ~
+		  2) send_stats "Minecraft 서버 열기 스크립트" ; cd ~
 			 curl -sS -O ${gh_proxy}raw.githubusercontent.com/kejilion/sh/main/mc.sh ; chmod +x mc.sh ; ./mc.sh
 			 exit
 			 ;;
@@ -16783,7 +16783,7 @@ echo "-------------------"
 echo "영상 소개: https://www.bilibili.com/video/BV1ib421E7it?t=0.1"
 echo "다음은 k 명령의 참조 사용 사례입니다."
 echo "시작 스크립트 k"
-echo "패키지 설치 k install nano wget | k 나노 wget 추가 | k는 나노 wget을 설치합니다."
+echo "패키지 설치 k install nano wget | k 나노 wget 추가 | k는 nano wget을 설치합니다."
 echo "패키지 제거 k 제거 nano wget | k 델 나노 wget | k 나노 wget 제거 | k 나노 wget 제거"
 echo "시스템 k 업데이트 업데이트 | k 업데이트"
 echo "클린 시스템 정크 k 클린 | 케이 깨끗하다"
@@ -16817,7 +16817,7 @@ echo "역방향 프록시 설치 k fd |k rp |k 역방향 프록시 |k fd xxx.com
 echo "로드 밸런싱 설치 k loadbalance |k 로드 밸런싱"
 echo "L4 로드 밸런싱 설치 k 스트림 |k L4 로드 밸런싱"
 echo "방화벽 패널 k fhq |k 방화벽"
-echo "포트 k 열기 ddk 8080 |k 포트 8080 열기"
+echo "포트 k 열기 DKdk 8080 |k 포트 8080 열기"
 echo "k 포트 닫기 gbdk 7800 |k 포트 7800 닫기"
 echo "릴리스 IP k fxip 127.0.0.0/8 |k 릴리스 IP 127.0.0.0/8"
 echo "IP 차단 k zzip 177.5.25.36 |k IP 177.5.25.36 차단"
